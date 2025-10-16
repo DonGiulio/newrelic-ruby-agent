@@ -40,7 +40,7 @@ DependencyDetection.defer do
         end
       end
 
-      if config.respond_to?(:error_handlers)
+      if config.respond_to?(:error_handlers) && !NewRelic::Agent.config[:sidekiq_skip_notice_error]
         # Sidekiq 3.0.0 - 7.1.4 expect error_handlers to have 2 arguments
         # Sidekiq 7.1.5+ expect error_handlers to have 3 arguments
         config.error_handlers << proc do |error, _ctx, *_|
